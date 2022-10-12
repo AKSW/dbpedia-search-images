@@ -66,9 +66,10 @@ class ImgFeatures():
         Given the image tensor, pass it through a pre-trained model and get the
         features
         """
-        assert os.path.isfile(image_path)
-        img_tensor = self.preprocess_img(image_path).to(self.device)
-        return self.model(img_tensor).squeeze()
+        if os.path.isfile(image_path) and self.load_img(image_path):
+            img_tensor = self.preprocess_img(image_path).to(self.device)
+            return self.model(img_tensor).squeeze()
+        return None
 
 
 if __name__ == '__main__':
