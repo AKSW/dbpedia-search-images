@@ -27,8 +27,11 @@ class ImgFeatures():
         """
         Given image's path, load it
         """
-        image = Image.open(image_path).convert('RGB')
-        return image
+        try:
+            image = Image.open(image_path).convert('RGB')
+            return image
+        except:
+            return None
 
     def preprocess_img(self, image_path):
         """
