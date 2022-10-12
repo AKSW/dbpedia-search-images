@@ -72,6 +72,6 @@ class ImgFeatures():
 
 
 if __name__ == '__main__':
-    input_img_path = "/Volumes/Storage/IIIT-H/DIP_Project_data/google-images-download/images/beer_labels/6.jockeyclub_0001.jpg"
+    input_img_path = "/google-images-download/images/beer_labels/6.jockeyclub_0001.jpg"
     feats_class = ImgFeatures()
     feats = feats_class.get_features(image_path=input_img_path)

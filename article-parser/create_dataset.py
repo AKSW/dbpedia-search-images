@@ -12,10 +12,15 @@ def save_batch(output, dir_path):
     count = 0
     save_json = dict()
     error_json = dict()
+
+    if not os.path.exists(dir_path):
+        os.makedirs(dir_path)
+
     for input_dict in tqdm(output):
         saved = True
         count += 1
         image_path = os.path.join(dir_path, f'{count}.jpg')
+        print (image_path)
         try:
             save_image(input_dict, image_path)
         except:
@@ -91,7 +96,7 @@ if __name__ == '__main__':
     parser.add_argument(
         '--save_dir',
         '-sd',
-        default='''/Users/siddhantbansal/Desktop/IIIT-H/GSoC_2022/Code/image-search-gsoc-2022/dataset/test_run''',
+        default='''img_dataset/''',
         help='Path to the directory to save the images into',
     )
     args=parser.parse_args()
