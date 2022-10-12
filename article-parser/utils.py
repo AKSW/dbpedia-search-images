@@ -1,9 +1,8 @@
 
 import argparse
-import urllib.request
 from pprint import pprint
 from rdflib import sparqlEndpoint
-
+import requests
 
 def save_image(input_dict, filename):
     """
@@ -11,6 +10,8 @@ def save_image(input_dict, filename):
     """
     image_link = input_dict['image']['value']
     file = open(filename, 'wb')
-    file.write(urllib.request.urlopen(image_link).read())
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:71.0) Gecko/20100101 Firefox/71.0'}
+    file.write(requests.get(image_link, headers=headers).content)
     file.close()
     return None
