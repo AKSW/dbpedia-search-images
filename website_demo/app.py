@@ -10,7 +10,7 @@ app.config['UPLOAD_FOLDER'] = '.'
 ranked_list = RankedList()
 
 
-@app.route('/upload')
+@app.route('/')
 def upload_file_():
     return render_template('upload.html')
 
