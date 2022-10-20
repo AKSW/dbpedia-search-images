@@ -7,6 +7,7 @@ import json
 import argparse
 import numpy as np
 from tqdm import tqdm
+from pprint import pprint
 
 from .query_embds import QueryEmbds
 from img_models.generate_features import ImgFeatures
@@ -153,7 +154,24 @@ if __name__ == '__main__':
         default='/scratch/sid/dataset_embeddings',
         help='Path to the directory containing the embeddings',
     )
+    parser.add_argument(
+        '-n',
+        default=10,
+        type=int,
+        help='Number of results to show',
+    )
+    parser.add_argument(
+        '-p',
+        required=True,
+        help='Path to the image for quering the DBpedia articles',
+    )
     args = parser.parse_args()
     ranked_list = RankedList()
-    images_ranked_list, uris_ranked_list = ranked_list.generate_results(0)
-    print(images_ranked_list[:10])
+    images_ranked_list, uris_ranked_list = ranked_list.generate_img_results(
+        image_path=args.p,
+        num_img=args.n,
+    )
+    print('List of DBpedia articles...')
+    print(f'Rank\tURI')
+    for i, uri in enumerate(uris_ranked_list):
+        print(f'{i+1}\t{uri}')

@@ -27,8 +27,11 @@ class ImgFeatures():
         """
         Given image's path, load it
         """
-        image = Image.open(image_path).convert('RGB')
-        return image
+        try:
+            image = Image.open(image_path).convert('RGB')
+            return image
+        except:
+            return None
 
     def preprocess_img(self, image_path):
         """
@@ -66,12 +69,13 @@ class ImgFeatures():
         Given the image tensor, pass it through a pre-trained model and get the
         features
         """
-        assert os.path.isfile(image_path)
-        img_tensor = self.preprocess_img(image_path).to(self.device)
-        return self.model(img_tensor).squeeze()
+        if os.path.isfile(image_path) and self.load_img(image_path):
+            img_tensor = self.preprocess_img(image_path).to(self.device)
+            return self.model(img_tensor).squeeze()
+        return None
 
 
 if __name__ == '__main__':
-    input_img_path = "/Volumes/Storage/IIIT-H/DIP_Project_data/google-images-download/images/beer_labels/6.jockeyclub_0001.jpg"
+    input_img_path = "/google-images-download/images/beer_labels/6.jockeyclub_0001.jpg"
     feats_class = ImgFeatures()
     feats = feats_class.get_features(image_path=input_img_path)
